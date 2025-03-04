@@ -4,8 +4,12 @@ const getProductById = async (id) => {
     return await Product.findOne({ _id: id }, { deleted: false });
 }
 
-const getAllProducts = async () => {
-    const products = await Product.find({ deleted: false }).select('_id name price image categories');
+const getProducts = async ({ page= 0, offset= 10}) => {
+    const products = await Product.find({ deleted: false })
+    .skip(page * offset)
+    .limit(offset)
+    .select('_id name price image categories')
+    .sort({ createdAt: -1 });
     return products;
 };
 
@@ -32,7 +36,7 @@ const searchProductByName = async (name) => {
 }
 
 module.exports = {
-    getAllProducts,
+    getProducts,
     getProductById,
     createProduct,
     updateProduct,

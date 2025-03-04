@@ -8,39 +8,43 @@ const createProduct = asyncHandler(async (req, res) => {
     res.status(201).json(newProduct);
 });
 
-const getAllProducts = asyncHandler(async (req, res) => {
-    const products = await productServices.getAllProducts();
+const getProducts = asyncHandler(async (req, res) => {
+    const { page, offset } = req.query;
+    const products = await productServices.getProducts({
+        page: parseInt(page || '0'),
+        offset: parseInt(offset || '10')
+    });
     res.json(products);
 });
 
-const getProductById = asyncHandler( async ( req, res ) => {
+const getProductById = asyncHandler(async (req, res) => {
     const { id } = req.params;
     const product = await productServices.getProductById(id);
     res.json(product);
 })
 
-const updateProduct = asyncHandler( async (req, res) => {
+const updateProduct = asyncHandler(async (req, res) => {
     const { id } = req.params;
     const updatedProduct = await productServices.updateProduct(id, req.body);
     res.status(201).json(updatedProduct)
 });
 
-const deleteProduct = asyncHandler(async(req, res) => {
+const deleteProduct = asyncHandler(async (req, res) => {
     const { id } = req.params;
     await productServices.deleteProduct(id);
     res.status(204).end();
 });
 
-const searchProductByName = asyncHandler( async (req, res) => {
+const searchProductByName = asyncHandler(async (req, res) => {
     const { name } = req.query;
-    console.log(".......................",name);
+    console.log(".......................", name);
     const product = await productServices.searchProductByName(name);
     res.json(product);
 });
 
 module.exports = {
     createProduct,
-    getAllProducts,
+    getProducts,
     getProductById,
     updateProduct,
     deleteProduct,
