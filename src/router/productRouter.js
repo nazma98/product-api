@@ -2,7 +2,6 @@ const express = require('express');
 
 const productRouter = express.Router();
 
-const { productServices } = require('../service');
 const { productController } = require('../controller');
 const { validatePayload } = require('../middleware');
 const { ProductSchema } = require('../schema');
@@ -18,6 +17,6 @@ productRouter.put(
     validatePayload(ProductSchema.partial()),
     productController.updateProduct);
 productRouter.delete('/:id', productController.deleteProduct);
+productRouter.get('/search', productController.searchProductByName);
 
-productRouter.post('')
 module.exports = productRouter;

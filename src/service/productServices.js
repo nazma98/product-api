@@ -26,10 +26,16 @@ const deleteProduct = async (id) => {
     );
 }
 
+const searchProductByName = async (name) => {
+    console.log('Search query name:', name); 
+    return await Product.find({ name: name}).select('_id name price image categories');
+}
+
 module.exports = {
     getAllProducts,
     getProductById,
     createProduct,
     updateProduct,
     deleteProduct,
+    searchProductByName,
 };
