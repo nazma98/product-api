@@ -2,7 +2,7 @@ const express = require('express')
 
 const { logRequestMiddleware, errorHandler } = require('./middleware');
 const { configureRouter } = require('./router');
-const connectDB = require('../db');
+const connectDB = require('./db');
 const config = require('./config');
 const { default: rateLimit } = require('express-rate-limit');
 
