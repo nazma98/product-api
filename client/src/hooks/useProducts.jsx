@@ -1,35 +1,18 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import http from '../config/http';
+import { useQuery } from '@tanstack/react-query';
 
 export default function useProducts() {
-const [products, setProducts] = useState([]);
+    const productQuery = useQuery({
+        queryKey: 'products',
+        queryFn: () => fetchProducts(),
+    });
 
-const fetchProducts = useCallback(async () => {
-  try {
+    return { productQuery };
+}
+
+
+const fetchProducts = async () => {
     const { data } = await http.get('/api/products');
-    console.log(data);
-    setProducts(data);
-  } catch (error) {
-    console.error(error);
-  }
-}, []);
-
-useEffect(() => {
-  fetchProducts();
-}, [fetchProducts]);
-
-const formattedRows = useMemo(
-  () =>
-    products.map((product, index) => ({
-      id: product._id,
-      sl: index + 1,
-      name: product.name,
-      price: product.price,
-      quantity: product.quantity,
-      image: product.image,
-    })),
-  [products]
-);
-
-return { formattedRows };
+    return data;
 }
