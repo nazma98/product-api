@@ -46,10 +46,10 @@ export function ProductTable() {
     [productQuery.data]
   );
 
-
   return (
     <Box sx={{ height: 400, width: '100%' }}>
       <DataGrid
+        loading={productQuery.isLoading}
         rows={formattedRows}
         columns={columns}
         disableRowSelectionOnClick

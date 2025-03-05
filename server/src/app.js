@@ -19,11 +19,7 @@ const port = config.PORT;
 
 const app = express();
 
-app.use(
-  cors({
-    origin: 'http://localhost:5173/',
-  })
-);
+app.use(cors(config.CORS));
 
 app.use(limiter);
 
