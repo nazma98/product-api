@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 
 export default function useProducts() {
     const productQuery = useQuery({
-        queryKey: 'products',
+        queryKey: ['products'],
         queryFn: () => fetchProducts(),
     });
 
