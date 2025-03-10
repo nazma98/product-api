@@ -72,7 +72,7 @@ export function ProductForm({ placeholder, onSubmit }) {
             variant='outlined'
             type='number'
             required
-            {...form.register('price')}
+            {...form.register('price', { valueAsNumber: true })}
             error={Boolean(form.formState.errors.price)}
           />
           {form.formState.errors?.price && (
@@ -87,7 +87,7 @@ export function ProductForm({ placeholder, onSubmit }) {
             label='Quantity'
             variant='outlined'
             type='number'
-            {...form.register('quantity')}
+            {...form.register('quantity', { valueAsNumber: true})}
             error={Boolean(form.formState.errors.quantity)}
           />
           {form.formState.errors?.quantity && (
